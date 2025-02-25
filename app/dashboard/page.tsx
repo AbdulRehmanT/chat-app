@@ -19,7 +19,7 @@ export default function Page() {
   // Redirect the user if they are not logged in
   useEffect(() => {
     if (!user) {
-      router.push("/auth/login"); // Redirect to login if no user is found
+      router.push("/login"); // Redirect to login if no user is found
     }
   }, [user, router]);
 

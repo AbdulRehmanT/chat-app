@@ -79,7 +79,7 @@ export default function ForgotPassword() {
             )}
 
             <div className="mt-4 text-center text-sm">
-              <Link href="/auth/login" className="underline underline-offset-4">
+              <Link href="/" className="underline underline-offset-4">
                 Back to Login
               </Link>
             </div>

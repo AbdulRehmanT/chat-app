@@ -17,7 +17,7 @@ const Logout = () => {
         setUser(null);
       }
 
-      router.push("/auth/login");
+      router.push("/");
     } catch (error) {
       console.error("Error signing out: ", error);
       alert("An error occurred while logging out. Please try again.");

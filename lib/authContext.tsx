@@ -40,7 +40,7 @@ export default function AuthContextProvider({ children }: ChildrenType) {
         router.push('/dashboard')
       } else {
         setUser(null);
-        router.push('/auth/login')
+        router.push('/')
       }
     });
   }, []);

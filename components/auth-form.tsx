@@ -247,7 +247,7 @@ export function AuthForm({ isSignup }: AuthFormProps) {
                 <>
                   Already have an account?{" "}
                   <Link
-                    href="/auth/login"
+                    href="/"
                     className="underline underline-offset-4"
                   >
                     Login
