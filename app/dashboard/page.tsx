@@ -3,7 +3,6 @@ import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import ChatRoom from "@/components/chatroom";
 import { useAuthContext } from "@/lib/authContext";
-import Logout from "@/components/log-out";
 
 // Define the User type
 interface User {
@@ -13,7 +12,7 @@ interface User {
   email: string;
 }
 
-export default function ChatroomPage() {
+export default function Page() {
   const { user } = useAuthContext() || {}; // Get the user from auth context
   const router = useRouter(); // Router for navigation
 
