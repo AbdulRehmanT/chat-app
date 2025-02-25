@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface MessageProps {
   text: string;
@@ -8,7 +8,7 @@ interface MessageProps {
   currentUserId: string;
   userImageUrl: string;
   userUsername: string;
-  timestamp: string; // Add timestamp field
+  timestamp: string;
 }
 
 export const Message = ({
@@ -21,15 +21,18 @@ export const Message = ({
 }: MessageProps) => {
   const isCurrentUser = userId === currentUserId;
 
-  // Format the timestamp if needed (e.g., display as "hh:mm AM/PM" format)
   const formattedTimestamp = new Date(timestamp).toLocaleTimeString([], {
-    hour: '2-digit',
-    minute: '2-digit',
+    hour: "2-digit",
+    minute: "2-digit",
     hour12: true,
   });
 
   return (
-    <div className={`flex ${isCurrentUser ? 'justify-end' : 'justify-start'} gap-3`}>
+    <div
+      className={`flex ${
+        isCurrentUser ? "justify-end" : "justify-start"
+      } gap-3`}
+    >
       {/* Avatar */}
       {!isCurrentUser && (
         <Avatar>
@@ -40,26 +43,24 @@ export const Message = ({
           )}
         </Avatar>
       )}
-
-      {/* Message Container */}
-      <div className={`flex flex-col ${isCurrentUser ? 'items-end' : 'items-start'}`}>
-        {/* Username & Timestamp */}
+      <div
+        className={`flex flex-col ${
+          isCurrentUser ? "items-end" : "items-start"
+        }`}
+      >
         <div className="text-sm text-gray-600 mb-1">
           <span className="font-semibold">{userUsername}</span> |{" "}
           <span className="text-xs">{formattedTimestamp}</span>
         </div>
 
-        {/* Message Bubble */}
         <div
           className={`px-4 py-2 rounded-lg max-w-xs ${
-            isCurrentUser ? 'bg-black text-white' : 'bg-gray-200'
+            isCurrentUser ? "bg-black text-white" : "bg-gray-200"
           }`}
         >
           {text}
         </div>
       </div>
-
-      {/* Avatar for Current User */}
       {isCurrentUser && (
         <Avatar>
           {userImageUrl ? (

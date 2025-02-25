@@ -11,8 +11,8 @@ import {
   query,
   orderBy,
   onSnapshot,
-} from "@/lib/firebase"; // Firebase imports
-import { Message } from "./Message"; // Importing the Message component
+} from "@/lib/firebase"; 
+import { Message } from "./Message"; 
 import Logout from "./log-out";
 
 interface User {
@@ -23,14 +23,14 @@ interface User {
 }
 
 interface ChatRoomProps {
-  user: User; // Expecting a user prop with the specified type
+  user: User; 
 }
 
 export default function ChatRoom({ user }: ChatRoomProps) {
-  const [messages, setMessages] = useState<any[]>([]); // State to hold messages
-  const [input, setInput] = useState(""); // State for input field
+  const [messages, setMessages] = useState<any[]>([]); 
+  const [input, setInput] = useState(""); 
 
-  // Fetch messages from Firestore
+ 
   useEffect(() => {
     console.log("Setting up Firestore listener");
 
@@ -46,7 +46,7 @@ export default function ChatRoom({ user }: ChatRoomProps) {
           return {
             ...data,
             timestamp: data.timestamp.toDate().toString(),
-            userUsername: data.username,  // Storing the sender's username
+            userUsername: data.username,  
           };
         });
 
@@ -58,24 +58,24 @@ export default function ChatRoom({ user }: ChatRoomProps) {
       }
     );
 
-    return () => unsubscribe(); // Clean up listener on component unmount
+    return () => unsubscribe(); 
   }, []);
 
   // Send message to Firestore
   const sendMessage = async (e: React.FormEvent) => {
-    e.preventDefault(); // Prevent page refresh on form submit
+    e.preventDefault(); 
 
-    if (!input.trim()) return; // Don't send empty messages
+    if (!input.trim()) return; 
 
     try {
       await addDoc(collection(db, "messages"), {
         userId: user?.uid,
         text: input,
         timestamp: new Date(),
-        username: user?.username,  // Storing the sender's username
-        imageUrl: user?.imageUrl,  // Storing the sender's image URL (optional)
+        username: user?.username,  
+        imageUrl: user?.imageUrl,  
       });
-      setInput(""); // Clear input field after sending
+      setInput(""); 
     } catch (error) {
       console.error("Error sending message:", error);
     }
@@ -102,8 +102,8 @@ export default function ChatRoom({ user }: ChatRoomProps) {
                 text={msg.text}
                 userId={msg.userId}
                 currentUserId={user?.uid}
-                userImageUrl={msg.imageUrl}  // Pass the sender's image URL
-                userUsername={msg.userUsername}  // Pass the sender's username
+                userImageUrl={msg.imageUrl} 
+                userUsername={msg.userUsername} 
                 timestamp={msg.timestamp}
               />
             ))
