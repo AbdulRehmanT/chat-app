@@ -7,27 +7,34 @@ import {
   onAuthStateChanged,
   sendPasswordResetEmail,
 } from "firebase/auth";
-import { addDoc, collection, doc, getDoc, getFirestore, onSnapshot, orderBy, query, setDoc } from "firebase/firestore";
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  getFirestore,
+  onSnapshot,
+  orderBy,
+  query,
+  setDoc,
+} from "firebase/firestore";
 import { getDownloadURL, getStorage, ref, uploadBytes } from "firebase/storage";
 
-
-
 const firebaseConfig = {
-  apiKey: process.env.NEXT_PUBLIC_apiKey,
-  authDomain: process.env.NEXT_PUBLIC_authDomain,
-  projectId: process.env.NEXT_PUBLIC_projectId,
-  storageBucket: process.env.NEXT_PUBLIC_storageBucket,
-  messagingSenderId: process.env.NEXT_PUBLIC_messagingSenderId,
-  appId: process.env.NEXT_PUBLIC_appId,
-  measurementId: process.env.NEXT_PUBLIC_measurementId,
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY,
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID,
+  measurementId: process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID,
 };
 
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 const auth = getAuth(app);
 const db = getFirestore(app);
-const storage = getStorage(app)
-
+const storage = getStorage(app);
 
 export {
   auth,
@@ -44,5 +51,9 @@ export {
   ref,
   uploadBytes,
   getDownloadURL,
-  collection, addDoc, query, orderBy, onSnapshot
+  collection,
+  addDoc,
+  query,
+  orderBy,
+  onSnapshot,
 };
