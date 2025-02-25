@@ -11,11 +11,11 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { auth, sendPasswordResetEmail } from "@/lib/firebase";
-import { useRouter } from "next/navigation";
+
 import Link from "next/link";
 
 export default function ForgotPassword() {
-  const router = useRouter();
+  
   const [email, setEmail] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
@@ -79,7 +79,7 @@ export default function ForgotPassword() {
             )}
 
             <div className="mt-4 text-center text-sm">
-              <Link href="/" className="underline underline-offset-4">
+              <Link href="/auth/login" className="underline underline-offset-4">
                 Back to Login
               </Link>
             </div>

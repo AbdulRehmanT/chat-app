@@ -16,10 +16,10 @@ export default function Page() {
   const { user } = useAuthContext() || {}; // Get the user from auth context
   const router = useRouter(); // Router for navigation
 
-  // Redirect the user if they are not logged in
+  
   useEffect(() => {
     if (!user) {
-      router.push("/login"); // Redirect to login if no user is found
+      router.push("/auth/login"); // Redirect to login if no user is found
     }
   }, [user, router]);
 
