@@ -31,7 +31,7 @@ export default function AuthContextProvider({ children }: ChildrenType) {
   const [user, setUser] = useState<UserType | null>(null);
 
   const router = useRouter();
-
+// useeffect
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
