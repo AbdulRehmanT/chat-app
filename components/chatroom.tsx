@@ -1,6 +1,4 @@
-"use client";
-
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -30,7 +28,10 @@ export default function ChatRoom({ user }: ChatRoomProps) {
   const [messages, setMessages] = useState<any[]>([]); 
   const [input, setInput] = useState(""); 
 
- 
+  // Reference to the message container
+  const messagesEndRef = useRef<HTMLDivElement | null>(null);
+
+  // Scroll to the bottom when a new message is added or when the component mounts
   useEffect(() => {
     console.log("Setting up Firestore listener");
 
@@ -73,13 +74,25 @@ export default function ChatRoom({ user }: ChatRoomProps) {
         text: input,
         timestamp: new Date(),
         username: user?.username,  
-        imageUrl: user?.imageUrl,  
+        imageUrl: user?.imageUrl,  // Pass the user avatar imageUrl here
       });
       setInput(""); 
     } catch (error) {
       console.error("Error sending message:", error);
     }
   };
+
+  // Scroll to the bottom function
+  const scrollToBottom = () => {
+    if (messagesEndRef.current) {
+      messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  // Effect to auto-scroll when messages change
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-4">
@@ -102,12 +115,14 @@ export default function ChatRoom({ user }: ChatRoomProps) {
                 text={msg.text}
                 userId={msg.userId}
                 currentUserId={user?.uid}
-                userImageUrl={msg.imageUrl} 
+                userImageUrl={msg.imageUrl} // This is where you use the avatar URL
                 userUsername={msg.userUsername} 
                 timestamp={msg.timestamp}
               />
             ))
           )}
+          {/* Add an empty div that will be scrolled into view */}
+          <div ref={messagesEndRef} />
         </CardContent>
 
         <form

@@ -23,6 +23,8 @@ import {
   getDownloadURL,
   storage,
   ref,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "@/lib/firebase";
 import { useRouter } from "next/navigation";
 
@@ -50,6 +52,50 @@ export function AuthForm({ isSignup }: AuthFormProps) {
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string>("");
 
+  // Google login and signup handler
+  const handleGoogleSignIn = async () => {
+    setLoading(true);
+    setMessage("");
+  
+    const provider = new GoogleAuthProvider();
+  
+    try {
+      // Google sign-in process
+      const result = await signInWithPopup(auth, provider);
+      const firebaseUser = result.user;
+      console.log("User signed in with Google:", firebaseUser);
+  
+      // Check if the user is signing up
+      if (isSignup) {
+        const userDoc = await getDoc(doc(db, "users", firebaseUser.uid));
+        if (!userDoc.exists()) {
+          // User doesn't exist, create a new user
+          await setDoc(doc(db, "users", firebaseUser.uid), {
+            username: firebaseUser.displayName || firebaseUser.email,
+            email: firebaseUser.email,
+            uid: firebaseUser.uid,
+            imageUrl: firebaseUser.photoURL || "", // Save the avatar URL here
+          });
+          console.log("User saved to Firestore");
+        }
+      }
+  
+      // Ensure user data is saved and wait for it to complete
+      setLoading(false);
+  
+      // Redirect to dashboard only after Firestore operation is confirmed
+      router.push("/dashboard");
+  
+    } catch (err) {
+      setLoading(false);
+      console.error("Error with Google sign-in: ", err);
+  
+      // Handle error
+      setMessage("Error: " + (err instanceof Error ? err.message : err));
+    }
+  };
+  
+  
   // Signup
   const handleSignup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -233,6 +279,11 @@ export function AuthForm({ isSignup }: AuthFormProps) {
                 {loading ? "Loading..." : isSignup ? "Sign Up" : "Login"}
               </Button>
             </div>
+            <div className="mt-4 text-center">
+            <Button onClick={handleGoogleSignIn} variant="outline" className="w-full" disabled={loading}>
+              {loading ? "Loading..." : isSignup ? "Sign Up with Google" : "Login with Google"}
+            </Button>
+          </div>
             {message && (
               <div
                 className={`mt-4 text-center text-sm ${
@@ -266,6 +317,9 @@ export function AuthForm({ isSignup }: AuthFormProps) {
               )}
             </div>
           </form>
+
+
+          
         </CardContent>
       </Card>
     </div>

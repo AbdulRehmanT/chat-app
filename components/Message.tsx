@@ -29,9 +29,7 @@ export const Message = ({
 
   return (
     <div
-      className={`flex ${
-        isCurrentUser ? "justify-end" : "justify-start"
-      } gap-3`}
+      className={`flex ${isCurrentUser ? "justify-end" : "justify-start"} gap-3`}
     >
       {/* Avatar */}
       {!isCurrentUser && (
@@ -44,18 +42,16 @@ export const Message = ({
         </Avatar>
       )}
       <div
-        className={`flex flex-col ${
-          isCurrentUser ? "items-end" : "items-start"
-        }`}
+        className={`flex flex-col ${isCurrentUser ? "items-end" : "items-start"}`}
       >
-        <div className="text-sm text-gray-600 mb-1">
+        <div className="text-sm text-foreground mb-1">
           <span className="font-semibold">{userUsername}</span> |{" "}
           <span className="text-xs">{formattedTimestamp}</span>
         </div>
 
         <div
           className={`px-4 py-2 rounded-lg max-w-xs ${
-            isCurrentUser ? "bg-black text-white" : "bg-gray-200"
+            isCurrentUser ? "bg-primary text-white" : "bg-accent"
           }`}
         >
           {text}
@@ -73,3 +69,4 @@ export const Message = ({
     </div>
   );
 };
+

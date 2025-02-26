@@ -6,6 +6,8 @@ import {
   signInWithEmailAndPassword,
   onAuthStateChanged,
   sendPasswordResetEmail,
+  GoogleAuthProvider,
+  signInWithPopup,
 } from "firebase/auth";
 import {
   addDoc,
@@ -56,4 +58,6 @@ export {
   query,
   orderBy,
   onSnapshot,
+  GoogleAuthProvider,
+  signInWithPopup
 };
